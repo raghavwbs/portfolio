@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Organic Social — CashForCars.co.uk · Raghav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+:root{
+  --blue:#3FD68C;
+  --blue-lt:#6EE6AC;
+  --blue-dim:rgba(63,214,140,0.15);
+  --green:#5B7FFF;
+  --amber:#FFC72C;
+  --rule:rgba(255,255,255,0.07);
+  --card:#0f0f0f;
+}
+
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:padding .4s,background .4s;border-bottom:1px solid transparent}
+#nav.stuck{padding:14px 48px;background:rgba(10,10,10,.97);backdrop-filter:blur(16px);border-color:var(--rule)}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+.nav-logo span{opacity:.25}
+.nav-r{display:flex;align-items:center;gap:24px}
+.nav-back{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s;display:flex;align-items:center;gap:8px}
+.nav-back:hover{color:#fff}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:10px 20px;border:1.5px solid rgba(255,255,255,.3);color:#fff;transition:background .25s,border-color .25s}
+.nav-btn:hover{background:#fff;color:#0a0a0a;border-color:#fff}
+
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:130px 48px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(63,214,140,.14) 0%,transparent 60%),radial-gradient(ellipse 35% 40% at 5% 70%,rgba(91,127,255,.06) 0%,transparent 60%);pointer-events:none}
+.hero-tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:48px;position:relative;z-index:1}
+.htag{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--rule);color:rgba(255,255,255,.4)}
+.htag.blue{border-color:rgba(63,214,140,.5);color:var(--blue-lt)}
+.htag.green{border-color:rgba(91,127,255,.4);color:var(--green)}
+.htag.amber{border-color:rgba(255,199,44,.4);color:var(--amber)}
+.hero-h1{font-family:'Unbounded',sans-serif;font-size:clamp(2.6rem,6.5vw,8.5rem);font-weight:900;letter-spacing:-.04em;line-height:.9;position:relative;z-index:1;margin-bottom:52px}
+.hero-h1 .accent{color:var(--blue-lt)}
+.hero-h1 .sub{display:block;font-style:italic;font-weight:300;font-family:'DM Sans',sans-serif;font-size:.28em;letter-spacing:-.01em;color:rgba(255,255,255,.35);margin-top:14px}
+.hero-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);position:relative;z-index:1}
+.hf-cell{padding:28px 0;border-right:1px solid var(--rule)}
+.hf-cell:last-child{border-right:none}
+.hf-cell:not(:first-child){padding-left:28px}
+.hf-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.hf-val{font-size:.9rem;font-weight:400;color:#fff;line-height:1.4}
+
+.sec{padding:90px 48px;border-bottom:1px solid var(--rule)}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--blue-lt);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-eyebrow::before{content:'';width:22px;height:1px;background:var(--blue-lt);flex-shrink:0}
+.sec-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,3.5vw,4rem);font-weight:700;letter-spacing:-.035em;line-height:.95;margin-bottom:56px}
+
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3px}
+.stat-box{background:var(--card);padding:40px 36px;transition:background .3s}
+.stat-box:hover{background:#161616}
+.stat-n{font-family:'Unbounded',sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#fff}
+.stat-n.blue{color:var(--blue-lt)}
+.stat-n.green{color:var(--green)}
+.stat-n.amber{color:var(--amber)}
+.stat-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.stat-sub{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.5}
+
+.chart-wrap{background:var(--card);border:1px solid var(--rule);padding:36px;position:relative}
+.chart-title{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:28px}
+.chart-area{position:relative;height:200px;width:100%}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);border:1px solid var(--rule)}
+.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;background:var(--rule);border:1px solid var(--rule)}
+
+
+.campaign-sec{padding:90px 48px;border-bottom:1px solid var(--rule)}
+.camp-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:40px}
+.camp-eyebrow{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px}
+.camp-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,3vw,3.2rem);font-weight:700;letter-spacing:-.035em;line-height:.95;color:#fff}
+.camp-tag{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border:1px solid;white-space:nowrap;align-self:flex-end}
+.camp-tag.blue{border-color:rgba(63,214,140,.4);color:var(--blue-lt)}
+.camp-tag.green{border-color:rgba(91,127,255,.35);color:var(--green)}
+
+/* ══ FEED PHONES ══ */
+.feed-wrap{display:flex;gap:36px;justify-content:center;flex-wrap:wrap}
+.phone-frame{width:100%;max-width:300px;border:1px solid var(--rule);border-radius:26px;overflow:hidden;background:#050505}
+.phone-frame-header{padding:16px;text-align:center;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:center;gap:8px}
+.phone-frame-header .dot{width:6px;height:6px;border-radius:50%;background:var(--blue-lt)}
+.phone-scroll{height:620px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.phone-scroll img{width:100%;display:block}
+.phone-scroll::-webkit-scrollbar{width:5px}
+.phone-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15)}
+.feed-hint{text-align:center;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:14px}
+
+.insight-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.insight{background:var(--card);padding:36px 32px;transition:background .3s}
+.insight:hover{background:#161616}
+.insight-icon{font-size:1.4rem;margin-bottom:18px;display:block}
+.insight-title{font-family:'Unbounded',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:-.01em;color:#fff;margin-bottom:10px;line-height:1.3}
+.insight-body{font-size:.8rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85}
+
+.footnote{padding:32px 48px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:16px}
+.footnote-icon{font-size:.8rem;color:rgba(255,255,255,.2);flex-shrink:0}
+.footnote-text{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;color:rgba(255,255,255,.2);line-height:1.8}
+
+#next{padding:72px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);transition:background .3s}
+#next:hover{background:#111}
+.next-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
+.next-name{font-family:'Unbounded',sans-serif;font-size:clamp(1.5rem,3vw,3.5rem);font-weight:700;letter-spacing:-.03em;color:#fff}
+.next-arrow{font-size:2.5rem;color:rgba(255,255,255,.2);transition:transform .4s cubic-bezier(.34,1.56,.64,1),color .3s;flex-shrink:0}
+#next:hover .next-arrow{transform:rotate(-45deg);color:#fff}
+
+footer{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule)}
+.ft-name{font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:22px}
+.ft-links a{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.6)}
+.ft-copy{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.08em;color:rgba(255,255,255,.12)}
+
+.rv{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .rv.on{opacity:1;transform:translateY(0)}
+}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+@media(max-width:900px){
+  #nav,#hero,.sec,.campaign-sec,.footnote,#next,footer{padding-left:20px;padding-right:20px}
+  #nav.stuck{padding-left:20px;padding-right:20px}
+  .nav-r .nav-back span{display:none}
+  .nav-btn{padding:9px 14px;font-size:.55rem}
+  #hero{padding-top:100px}
+  .hero-h1{font-size:clamp(2rem,8.5vw,4rem);margin-bottom:36px}
+  .hero-h1 .sub{font-size:.32em;margin-top:10px}
+  .hero-tag-row{gap:6px;margin-bottom:36px}
+  .htag{font-size:.5rem;padding:5px 10px}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .hf-cell{padding:20px 0}
+  .hf-cell:nth-child(3){border-top:1px solid var(--rule)}
+  .hf-cell:nth-child(4){border-top:1px solid var(--rule);border-right:none}
+  .hf-cell:nth-child(2n){border-right:none}
+  .hf-label{font-size:.48rem}
+  .hf-val{font-size:.82rem}
+  .sec{padding:64px 20px}
+  .campaign-sec{padding:64px 20px}
+  .sec-h{font-size:clamp(1.6rem,6vw,2.4rem);margin-bottom:40px}
+  .camp-h{font-size:clamp(1.4rem,5.5vw,2.2rem)}
+  .camp-header{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:32px}
+  .camp-tag{font-size:.46rem;padding:5px 10px}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .stat-box{padding:28px 20px}
+  .stat-n{font-size:clamp(1.8rem,7vw,2.8rem)}
+  .stat-label{font-size:.48rem}
+  .stat-sub{font-size:.72rem}
+  .chart-grid-2,.chart-grid-3{grid-template-columns:1fr}
+  .chart-wrap{padding:24px 20px}
+  .chart-area{height:180px}
+  .chart-title{font-size:.5rem;margin-bottom:20px}
+  .insight-grid{grid-template-columns:1fr}
+  .insight{padding:28px 24px}
+  .insight-icon{font-size:1.2rem;margin-bottom:14px}
+  .insight-title{font-size:.84rem}
+  .insight-body{font-size:.76rem}
+  .footnote{padding:24px 20px;gap:12px;flex-direction:column;align-items:flex-start}
+  .footnote-text{font-size:.52rem}
+  #next{padding:56px 20px;gap:20px}
+  .next-name{font-size:clamp(1.4rem,5.5vw,2.5rem)}
+  .next-arrow{font-size:2rem}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:20px}
+  .ft-links{flex-wrap:wrap;justify-content:center;gap:16px}
+  .ft-name{font-size:.7rem}
+  .ft-copy{font-size:.5rem}
+  .phone-scroll{height:460px}
+}
+@media(max-width:480px){
+  #nav{padding:18px 18px}
+  #nav.stuck{padding:14px 18px}
+  .nav-logo{font-size:.85rem}
+  #hero{padding:90px 18px 0}
+  .hero-h1{font-size:clamp(1.9rem,9.5vw,3.2rem)}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .sec{padding:52px 18px}
+  .campaign-sec{padding:52px 18px}
+  .sec-h{margin-bottom:32px}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .stat-box{padding:22px 16px}
+  .stat-n{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .chart-area{height:150px}
+  .insight{padding:24px 18px}
+  #next{flex-direction:column;align-items:flex-start;padding:48px 18px;gap:16px}
+  footer{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../index.html" class="nav-logo">RAGHAV<span>.</span></a>
+  <div class="nav-r">
+    <a href="../work.html" class="nav-back">← <span>All Projects</span></a>
+    <a href="https://raghavg.me/call" target="_blank" class="nav-btn">Book a Call ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag-row">
+    <span class="htag blue">Organic Social</span>
+    <span class="htag blue">Facebook & Instagram</span>
+    <span class="htag">Jan – Aug 2026</span>
+    <span class="htag green">+32.5% FB Followers</span>
+    <span class="htag amber">14.1M Impressions</span>
+  </div>
+  <h1 class="hero-h1">
+    CASHFORCARS<br><span class="accent">.CO.UK</span>
+    <span class="sub">Organic Social · Facebook & Instagram · Jan – Aug 2026</span>
+  </h1>
+  <div class="hero-foot">
+    <div class="hf-cell">
+      <div class="hf-label">Client</div>
+      <div class="hf-val">CashForCars.co.uk — UK Car Buying</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Period</div>
+      <div class="hf-val">Jan – Aug 2026, ongoing</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Platforms</div>
+      <div class="hf-val">Facebook · Instagram</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Role</div>
+      <div class="hf-val">Manage organic content & community, all channels</div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH SNAPSHOT -->
+<section class="sec">
+  <div class="sec-eyebrow rv">01 — Growth Snapshot</div>
+  <h2 class="sec-h rv d1">Eight months of<br>organic growth.</h2>
+  <div class="stat-strip rv d2">
+    <div class="stat-box">
+      <div class="stat-label">Facebook Followers</div>
+      <div class="stat-n blue">8,293</div>
+      <div class="stat-sub">Up from 6,258 in January — +32.5%</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Total Impressions</div>
+      <div class="stat-n">14.1M</div>
+      <div class="stat-sub">Facebook, 2 Jan – 14 Aug 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Total Engagement</div>
+      <div class="stat-n blue">7.4M</div>
+      <div class="stat-sub">Reactions, comments, shares & clicks</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Instagram</div>
+      <div class="stat-n amber" style="font-size:clamp(1.3rem,2.5vw,2rem)">New channel</div>
+      <div class="stat-sub">Content started March 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- FACEBOOK GROWTH -->
+<div class="campaign-sec">
+  <div class="camp-header rv">
+    <div>
+      <div class="camp-eyebrow" style="color:var(--blue-lt)">02 — Facebook Performance</div>
+      <h2 class="camp-h">Steady growth,<br>since I joined.</h2>
+    </div>
+    <span class="camp-tag blue">Jan – Aug 2026</span>
+  </div>
+
+  <div class="stat-strip rv d2">
+    <div class="stat-box">
+      <div class="stat-label">Followers</div>
+      <div class="stat-n blue">8,293</div>
+      <div class="stat-sub">+32.5% since I joined</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Impressions Since I Joined</div>
+      <div class="stat-n blue">14.1M</div>
+      <div class="stat-sub">Facebook, cumulative</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Engagement Since I Joined</div>
+      <div class="stat-n blue">7.4M</div>
+      <div class="stat-sub">Facebook, cumulative</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE FEED -->
+<section class="sec">
+  <div class="sec-eyebrow rv">03 — The Feed</div>
+  <h2 class="sec-h rv d1">What's actually<br>going out.</h2>
+  <div class="feed-wrap rv d1">
+    <div>
+      <div class="phone-frame">
+        <div class="phone-frame-header"><span class="dot"></span>Facebook — Cash For Cars</div>
+        <div class="phone-scroll">
+          <img src="../media/organic-social2/facebook-feed.jpg" alt="Cash For Cars Facebook feed">
+        </div>
+      </div>
+      <div class="feed-hint">↕ scroll to see the full feed</div>
+    </div>
+    <div>
+      <div class="phone-frame">
+        <div class="phone-frame-header"><span class="dot"></span>Instagram — @cashforcars_gb</div>
+        <div class="phone-scroll">
+          <img src="../media/organic-social2/instagram-feed.jpg" alt="Cash For Cars Instagram feed">
+        </div>
+      </div>
+      <div class="feed-hint">↕ scroll to see the full feed</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<div class="campaign-sec">
+  <div class="camp-header rv">
+    <div>
+      <div class="camp-eyebrow" style="color:var(--green)">04 — Instagram: The New Channel</div>
+      <h2 class="camp-h">Early days,<br>climbing from zero.</h2>
+    </div>
+    <span class="camp-tag green">Mar – Aug 2026</span>
+  </div>
+
+  <p class="rv d1" style="max-width:680px;font-size:.9rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:44px">Instagram is the newest channel I've built out for this account — content only started in March 2026, on a page that's still under 150 followers. It's early, but impressions and engagement have been climbing steadily as posting became consistent.</p>
+
+  <div class="stat-strip rv d2">
+    <div class="stat-box">
+      <div class="stat-label">Impressions Since Launch</div>
+      <div class="stat-n green">20,437</div>
+      <div class="stat-sub">Cumulative, Mar–Aug 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Engagement Since Launch</div>
+      <div class="stat-n">263</div>
+      <div class="stat-sub">Cumulative, Mar–Aug 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Posts Published</div>
+      <div class="stat-n green">62</div>
+      <div class="stat-sub">Since launch</div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY INSIGHTS -->
+<section class="sec">
+  <div class="sec-eyebrow rv">05 — Key Insights</div>
+  <h2 class="sec-h rv d1">What the data<br>tells us.</h2>
+  <div class="insight-grid rv d1">
+    <div class="insight">
+      <span class="insight-icon">📈</span>
+      <div class="insight-title">Followers Grew Every Month</div>
+      <p class="insight-body">Facebook followers grew every single month, Jan–Aug, with no dip — from 6,258 to 8,293, roughly 250 new followers a month, all organic, no paid boosting.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎯</span>
+      <div class="insight-title">More Posting, More Impressions</div>
+      <p class="insight-body">The biggest impression months — January (2.98M) and July (2.14M) — line up with the weeks I posted more often. Reach follows how much goes out.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🌱</span>
+      <div class="insight-title">Instagram Is Early, But Growing</div>
+      <p class="insight-body">Starting from zero in March, Instagram impressions and engagement both grew through spring before levelling off — expected for a channel still building its first real following.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">💬</span>
+      <div class="insight-title">Engagement Is High Relative to Reach</div>
+      <p class="insight-body">7.4M engagement actions against 14.1M impressions on Facebook means people are reacting, sharing, and commenting, not just scrolling past.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎥</span>
+      <div class="insight-title">Video Content Gets the Most Engagement</div>
+      <p class="insight-body">The feed leans heavily on short-form video — quote reveals, team moments, collection day clips — and it's the format driving most shares and comments on both platforms.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTNOTE -->
+<div class="footnote rv">
+  <span class="footnote-icon">ℹ</span>
+  <p class="footnote-text">Figures are rounded from weekly reporting pulled directly from Facebook and Instagram, 2 Jan – 14 Aug 2026. August figures are partial (2 of 4+ weeks). Shown here as part of my role managing organic social for CashForCars.co.uk.</p>
+</div>
+
+<!-- NEXT -->
+<a href="salvage-yard-case-study.html" id="next">
+  <div>
+    <div class="next-label">Next Project</div>
+    <div class="next-name">Car Breaker & Parts Company</div>
+  </div>
+  <div class="next-arrow">→</div>
+</a>
+
+<footer>
+  <span class="ft-name">RAGHAV.</span>
+  <ul class="ft-links">
+    <li><a href="https://www.linkedin.com/in/raghav2003" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/wthraghav/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.x.com/wthraghav/" target="_blank">X</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+  <span class="ft-copy">© 2026 Raghav. All rights reserved.</span>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60), {passive:true});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }});
+}, {threshold:.07});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+function drawLineChart(canvasId, labels, datasets, opts = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    render(1);
+  }
+
+  let animFrame;
+  function render(progress) {
+    const W = canvas.width / dpr;
+    const H = canvas.height / dpr;
+    const pad = { top: 16, right: 16, bottom: 36, left: 48 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    let minVal = Infinity, maxVal = -Infinity;
+    datasets.forEach(ds => ds.data.forEach(v => { if(v < minVal) minVal = v; if(v > maxVal) maxVal = v; }));
+    minVal = Math.min(0, minVal);
+    const range = maxVal - minVal || 1;
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const y = pad.top + plotH - (i / gridCount) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(pad.left + plotW, y);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.font = `9px DM Mono, monospace`;
+      ctx.textAlign = 'right';
+      const val = minVal + (i / gridCount) * range;
+      const label = opts.compact ? (val >= 1000000 ? (val/1000000).toFixed(1)+'M' : val >= 1000 ? (val/1000).toFixed(0)+'K' : val.toFixed(0)) : val.toFixed(opts.decimals||0);
+      ctx.fillText(opts.prefix ? opts.prefix + label : label, pad.left - 6, y + 3);
+    }
+
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.font = `8px DM Mono, monospace`;
+    ctx.textAlign = 'center';
+    const step = Math.ceil(labels.length / 8);
+    labels.forEach((lbl, i) => {
+      if (i % step === 0 || i === labels.length - 1) {
+        const x = pad.left + (i / (labels.length - 1)) * plotW;
+        ctx.fillText(lbl, x, H - pad.bottom + 16);
+      }
+    });
+
+    datasets.forEach(ds => {
+      const pts = ds.data.map((v, i) => ({
+        x: pad.left + (i / (ds.data.length - 1)) * plotW,
+        y: pad.top + plotH - ((v - minVal) / range) * plotH
+      }));
+      const animPts = pts.slice(0, Math.max(2, Math.round(pts.length * progress)));
+
+      ctx.beginPath();
+      ctx.moveTo(animPts[0].x, pad.top + plotH);
+      animPts.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(animPts[animPts.length - 1].x, pad.top + plotH);
+      ctx.closePath();
+      ctx.fillStyle = ds.fillColor || 'rgba(63,214,140,0.06)';
+      ctx.fill();
+
+      ctx.beginPath();
+      animPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+      ctx.strokeStyle = ds.color || '#3FD68C';
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      if (progress >= 1) {
+        animPts.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = ds.color || '#3FD68C';
+          ctx.fill();
+        });
+      }
+    });
+  }
+
+  let start;
+  function animate(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / 900, 1);
+    render(progress);
+    if (progress < 1) animFrame = requestAnimationFrame(animate);
+  }
+
+  const chartIo = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      resize();
+      start = null;
+      cancelAnimationFrame(animFrame);
+      requestAnimationFrame(animate);
+      chartIo.disconnect();
+    }
+  }, {threshold: 0.2});
+  chartIo.observe(canvas);
+
+  window.addEventListener('resize', () => {
+    resize();
+    render(1);
+  }, {passive: true});
+}
+
+
+</script>
+</body>
+</html>

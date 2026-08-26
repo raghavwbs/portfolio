@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Work — Raghav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* ══ NAV ══ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:24px 48px;transition:padding .4s,background .4s,border-color .4s;border-bottom:1px solid rgba(255,255,255,.06)}
+#nav.stuck{padding:16px 48px;background:rgba(10,10,10,.97);backdrop-filter:blur(16px)}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+.nav-logo span{opacity:.25}
+.nav-r{display:flex;align-items:center;gap:32px}
+.nav-link{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s}
+.nav-link:hover,.nav-link.active{color:#fff}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border:1.5px solid rgba(255,255,255,.3);color:#fff;transition:background .25s,border-color .25s;white-space:nowrap}
+.nav-btn:hover{background:#fff;color:#0a0a0a;border-color:#fff}
+
+/* ══ HEADER ══ */
+#header{min-height:52vh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 48px 64px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+.header-bg{position:absolute;right:-60px;top:50%;transform:translateY(-50%);font-family:'Unbounded',sans-serif;font-size:clamp(16rem,34vw,48rem);font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.03);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em}
+.header-eyebrow{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.header-eyebrow::before{content:'';width:24px;height:1px;background:rgba(255,255,255,.25);flex-shrink:0}
+.header-h1{font-family:'Unbounded',sans-serif;font-size:clamp(3.5rem,8vw,10rem);font-weight:900;letter-spacing:-.04em;line-height:.9;position:relative;z-index:1}
+.header-h1 em{font-style:italic;font-weight:300;font-family:'DM Sans',sans-serif;font-size:.5em;letter-spacing:-.01em;color:rgba(255,255,255,.35);display:block;margin-top:8px}
+.header-meta{margin-top:48px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.header-count{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.header-count span{color:#fff;font-size:1.1rem;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:-.02em;vertical-align:middle;margin-right:6px}
+
+/* ══ FILTER BAR ══ */
+#filters{padding:28px 48px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:400;background:#0a0a0a}
+.filter-btn{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 18px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);background:transparent;cursor:pointer;transition:all .2s;font-size:.58rem}
+.filter-btn:hover{border-color:rgba(255,255,255,.35);color:#fff}
+.filter-btn.active{background:#fff;color:#0a0a0a;border-color:#fff}
+
+/* ══ GRID ══ */
+#grid{padding:3px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+
+/* ══ TILE ══ */
+.tile{position:relative;overflow:hidden;display:block;text-decoration:none;aspect-ratio:2/3;background:#111}
+.tile-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:clamp(1.2rem,2vw,2rem);font-weight:900;letter-spacing:.06em;color:rgba(255,255,255,.05);transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1);display:block}
+.tile:hover .tile-img-ph,.tile:hover img{transform:scale(1.07)}
+.tile-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 55%,transparent 100%);opacity:0;transition:opacity .4s cubic-bezier(.22,1,.36,1);z-index:2}
+.tile:hover .tile-overlay{opacity:1}
+.tile-info{position:absolute;bottom:0;left:0;right:0;padding:24px 22px;z-index:3;transform:translateY(10px);opacity:0;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .4s}
+.tile:hover .tile-info{transform:translateY(0);opacity:1}
+.tile-cat{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.tile-name{font-family:'Unbounded',sans-serif;font-size:clamp(.85rem,1.1vw,1rem);font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#fff}
+.tile-badge{position:absolute;top:14px;right:14px;width:30px;height:30px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#0a0a0a;z-index:3;transform:scale(0);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.tile:hover .tile-badge{transform:scale(1)}
+
+/* ══ FOOTER ══ */
+footer{background:#0a0a0a;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.06);margin-top:3px}
+.ft-name{font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:24px}
+.ft-links a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.6)}
+.ft-copy{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:rgba(255,255,255,.12)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .rv.on{opacity:1;transform:translateY(0)}
+  .tile{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+  .tile.on{opacity:1;transform:translateY(0)}
+  .tile:nth-child(2){transition-delay:.07s}
+  .tile:nth-child(3){transition-delay:.14s}
+  .tile:nth-child(4){transition-delay:.21s}
+  .tile:nth-child(5){transition-delay:.1s}
+  .tile:nth-child(6){transition-delay:.17s}
+  .tile:nth-child(7){transition-delay:.24s}
+  .tile:nth-child(8){transition-delay:.14s}
+}
+
+/* ══ HIDDEN (filter) ══ */
+.tile.hidden{display:none}
+
+/* ══ MOBILE ══ */
+@media(max-width:900px){
+  #nav,#header,#filters,footer{padding-left:24px;padding-right:24px}
+  #nav.stuck{padding-left:24px;padding-right:24px}
+  .nav-r .nav-link{display:none}
+  #grid{grid-template-columns:1fr 1fr}
+  #filters{top:56px}
+}
+@media(max-width:480px){
+  #grid{grid-template-columns:1fr 1fr;gap:2px;padding:2px}
+  .header-h1{font-size:clamp(3rem,12vw,6rem)}
+  .tile{aspect-ratio:3/4}
+  footer{flex-direction:column;gap:16px;text-align:center}
+  .ft-links{flex-wrap:wrap;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">RAGHAV<span>.</span></a>
+  <div class="nav-r">
+    <a href="index.html#services" class="nav-link">Services</a>
+    <a href="work.html" class="nav-link active">Work</a>
+    <a href="index.html#contact" class="nav-link">Contact</a>
+    <a href="https://raghavg.me/call" target="_blank" class="nav-btn">Book a Call ↗</a>
+  </div>
+</nav>
+
+<!-- ══ HEADER ══ -->
+<section id="header">
+  <div class="header-bg" aria-hidden="true">W</div>
+  <div class="header-eyebrow rv">Selected projects</div>
+  <h1 class="header-h1 rv">
+    Work.
+    <em>Brand identity, SEO, video, web.</em>
+  </h1>
+  <div class="header-meta rv">
+    <div class="header-count"><span id="tile-count">8</span> projects</div>
+  </div>
+</section>
+
+<!-- ══ FILTERS ══ -->
+<div id="filters">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="brand">Brand Identity</button>
+  <button class="filter-btn" data-filter="seo">SEO</button>
+  <button class="filter-btn" data-filter="video">Video</button>
+  <button class="filter-btn" data-filter="web">Web Design</button>
+  <button class="filter-btn" data-filter="strategy">Strategy</button>
+  <button class="filter-btn" data-filter="paid">Paid Ads</button>
+</div>
+
+<!-- ══ GRID ══
+  HOW TO ADD A NEW PROJECT:
+  1. Copy one <a class="tile"> block below
+  2. Replace the tile-img-ph text (or swap for <img src="...">)
+  3. Update tile-cat and tile-name
+  4. Add the correct data-tags (e.g. data-tags="brand seo")
+  5. Done — filtering works automatically
+══ -->
+<div id="grid">
+
+  <!-- ─ Online Car-Buying Service ─ -->
+  <a href="casestudies/vehicle-buyback-case-study.html" class="tile" data-tags="paid strategy">
+    <div class="tile-img-ph" style="background:linear-gradient(160deg,#0d2016,#0a0a0a);color:rgba(63,214,140,.5)">VB</div>
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Paid Social · Full-Funnel</div>
+      <div class="tile-name">Online Car-Buying Service</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ Car Breaker & Parts Company ─ -->
+  <a href="casestudies/salvage-yard-case-study.html" class="tile" data-tags="paid strategy">
+    <div class="tile-img-ph" style="background:linear-gradient(160deg,#131d0d,#0a0a0a);color:rgba(140,198,63,.5)">SY</div>
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Paid Social · Pixel Rebuild</div>
+      <div class="tile-name">Car Breaker & Parts Company</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ CashForCars.co.uk Organic Social ─ -->
+  <a href="casestudies/cashforcars-organic-social.html" class="tile" data-tags="strategy">
+    <div class="tile-img-ph" style="background:linear-gradient(160deg,#0d2016,#0a0a0a);color:rgba(63,214,140,.5)">CFC</div>
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Organic Social · Community</div>
+      <div class="tile-name">CashForCars.co.uk</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ CLEANO ─ -->
+  <a href="casestudies/cleano-case-study.html" class="tile" data-tags="brand">
+    <!-- <img src="cleano.jpg" alt="Cleano"> -->
+    <img src="media/thumbnails/cleano-home-thumbnail-900x600.jpg" alt="Cleano">
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Brand Identity · Packaging</div>
+      <div class="tile-name">Cleano</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ SNXL ─ -->
+  <a href="casestudies/snxl-case-study.html" class="tile" data-tags="video">
+    <!-- <img src="snxl.jpg" alt="SNXL Trailer"> -->
+    <img src="media/thumbnails/snxl-home-thumbnail-900x600.jpg" alt="SNXL Trailer">
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Video Production · Motion</div>
+      <div class="tile-name">SNXL Trailer</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ THE SANDUK ─ -->
+  <a href="casestudies/sanduk-case-study.html" class="tile" data-tags="brand">
+    <!-- <img src="sanduk.jpg" alt="The Sanduk"> -->
+    <img src="media/thumbnails/sanduk-home-thumbnail900x600.jpg" alt="The Sanduk">
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Brand Identity · Visual Design</div>
+      <div class="tile-name">The Sanduk</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ CAMBIO ─ -->
+  <a href="casestudies/cambio-case-study.html" class="tile" data-tags="seo strategy">
+    <!-- <img src="cambio.jpg" alt="CAMBIO"> -->
+    <img src="media/thumbnails/Cambio-home-thumbnail-900x600.jpg" alt="CAMBIO">
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">SEO Strategy · Growth</div>
+      <div class="tile-name">CAMBIO</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+
+  <!-- ─ ADD MORE PROJECTS BELOW ─ -->
+  <!-- Example:
+  <a href="#" class="tile" data-tags="web brand">
+    <img src="project.jpg" alt="Project Name">
+    <div class="tile-overlay"></div>
+    <div class="tile-info">
+      <div class="tile-cat">Web Design · Branding</div>
+      <div class="tile-name">Project Name</div>
+    </div>
+    <div class="tile-badge">↗</div>
+  </a>
+  -->
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span class="ft-name">RAGHAV.</span>
+  <ul class="ft-links">
+    <li><a href="https://www.linkedin.com/in/raghav2003" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/wthraghav/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.x.com/wthraghav/" target="_blank">X</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+  <span class="ft-copy">© 2025 Raghav. All rights reserved.</span>
+</footer>
+
+<script>
+// Nav
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60), {passive:true});
+
+// Reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }});
+}, {threshold:.06});
+document.querySelectorAll('.rv, .tile').forEach(el => io.observe(el));
+
+// Filter
+const btns = document.querySelectorAll('.filter-btn');
+const tiles = document.querySelectorAll('.tile');
+const countEl = document.getElementById('tile-count');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let visible = 0;
+    tiles.forEach(tile => {
+      const tags = tile.dataset.tags || '';
+      const show = f === 'all' || tags.includes(f);
+      tile.classList.toggle('hidden', !show);
+      if(show) visible++;
+    });
+    countEl.textContent = visible;
+  });
+});
+
+// Update count on load
+countEl.textContent = tiles.length;
+</script>
+</body>
+</html>

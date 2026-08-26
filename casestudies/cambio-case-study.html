@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CAMBIO — SEO Case Study · Raghav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+:root{
+  --cambio: #3B3A8F;
+  --coral: #E8624A;
+  --coral-lt: #F08070;
+  --rule: rgba(255,255,255,0.07);
+}
+
+/* ══ NAV ══ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:24px 48px;transition:padding .4s,background .4s;border-bottom:1px solid transparent}
+#nav.stuck{padding:16px 48px;background:rgba(10,10,10,.97);backdrop-filter:blur(16px);border-color:var(--rule)}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+.nav-logo span{opacity:.25}
+.nav-r{display:flex;align-items:center;gap:28px}
+.nav-back{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s;display:flex;align-items:center;gap:8px}
+.nav-back:hover{color:#fff}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border:1.5px solid rgba(255,255,255,.3);color:#fff;transition:background .25s,border-color .25s}
+.nav-btn:hover{background:#fff;color:#0a0a0a;border-color:#fff}
+
+/* ══ HERO ══ */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 48px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+
+/* CAMBIO brand bg */
+.hero-brand-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,58,143,0.18) 0%,transparent 55%);pointer-events:none}
+.hero-dots{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.06}
+.hero-dots::before,.hero-dots::after{content:'';position:absolute;border-radius:50%;background:var(--coral)}
+.hero-dots::before{width:500px;height:500px;right:-100px;top:-100px}
+.hero-dots::after{width:300px;height:300px;left:10%;bottom:20%}
+
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:60px;position:relative;z-index:1}
+.hero-tag-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.htag{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--rule);color:rgba(255,255,255,.45)}
+.htag.accent{border-color:var(--coral);color:var(--coral)}
+.hero-client-logo{font-family:'DM Sans',sans-serif;font-size:2.5rem;font-weight:700;font-style:italic;color:rgba(255,255,255,.07);letter-spacing:-.03em;user-select:none}
+
+.hero-h1{font-family:'Unbounded',sans-serif;font-size:clamp(3rem,7.5vw,9rem);font-weight:900;letter-spacing:-.04em;line-height:.9;position:relative;z-index:1;margin-bottom:56px}
+.hero-h1 .sub{display:block;font-style:italic;font-weight:300;font-family:'DM Sans',sans-serif;font-size:.32em;letter-spacing:-.01em;color:rgba(255,255,255,.38);margin-top:12px}
+
+.hero-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);position:relative;z-index:1}
+.hf-cell{padding:32px 0;border-right:1px solid var(--rule)}
+.hf-cell:last-child{border-right:none}
+.hf-cell:not(:first-child){padding-left:32px}
+.hf-label{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px}
+.hf-val{font-size:.95rem;font-weight:400;color:#fff;line-height:1.4}
+
+/* ══ SECTIONS ══ */
+.sec{padding:100px 48px;border-bottom:1px solid var(--rule)}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--coral);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-eyebrow::before{content:'';width:22px;height:1px;background:var(--coral);flex-shrink:0}
+.sec-h{font-family:'Unbounded',sans-serif;font-size:clamp(2rem,4vw,4.5rem);font-weight:700;letter-spacing:-.035em;line-height:.95;margin-bottom:64px}
+
+/* ══ PROBLEM GRID ══ */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.prob-card{background:#0f0f0f;padding:40px 36px;position:relative;overflow:hidden;transition:background .3s}
+.prob-card:hover{background:#161616}
+.prob-card::before{content:'✗';position:absolute;top:24px;right:28px;font-size:1.1rem;color:rgba(232,98,74,.5)}
+.prob-n{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:rgba(255,255,255,.2);margin-bottom:20px}
+.prob-title{font-family:'Unbounded',sans-serif;font-size:clamp(.8rem,1.2vw,1rem);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:#fff}
+
+/* ══ SOLUTIONS ══ */
+.sol-list{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.sol-row{display:grid;grid-template-columns:56px 260px 1fr;align-items:start;gap:40px;padding:36px 0;border-bottom:1px solid var(--rule);transition:padding-left .3s}
+.sol-row:hover{padding-left:16px}
+.sol-check{font-size:1.1rem;color:var(--coral);padding-top:2px}
+.sol-title{font-family:'Unbounded',sans-serif;font-size:clamp(.85rem,1.2vw,1rem);font-weight:600;letter-spacing:-.02em;line-height:1.3;color:#fff}
+.sol-desc{font-size:.84rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85}
+
+/* ══ SCORES BEFORE/AFTER ══ */
+.scores-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);border:1px solid var(--rule);margin-bottom:60px}
+.scores-side{padding:48px 44px;background:#0f0f0f}
+.scores-side-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:32px}
+.scores-side.before .scores-side-label{color:rgba(255,255,255,.3)}
+.scores-side.after .scores-side-label{color:var(--coral)}
+.score-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.score-item{text-align:center}
+.score-ring{width:64px;height:64px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700}
+.score-item.perf .score-ring{border-color:rgba(255,100,80,.6);color:#ff6450}
+.score-item.access .score-ring{border-color:rgba(255,200,60,.6);color:#ffc83c}
+.score-item.bp .score-ring{border-color:rgba(80,200,120,.6);color:#50c878}
+.score-item.seo .score-ring{border-color:rgba(80,200,120,.6);color:#50c878}
+.scores-side.after .score-item .score-ring{border-color:rgba(80,200,120,.8) !important;color:#50c878 !important}
+.score-name{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* ══ STATS ══ */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.stat-card{background:#0f0f0f;padding:52px 44px;transition:background .3s}
+.stat-card:hover{background:#161616}
+.stat-n{font-family:'Unbounded',sans-serif;font-size:clamp(2.8rem,5vw,5.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff;margin-bottom:6px}
+.stat-n span{color:var(--coral)}
+.stat-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
+.stat-sub{font-size:.8rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.6}
+
+/* ══ PAGES BEFORE/AFTER ══ */
+.pages-flip{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;padding:56px 0;border-bottom:1px solid var(--rule);border-top:1px solid var(--rule);margin-bottom:60px}
+.pf-side{display:flex;flex-direction:column;gap:8px}
+.pf-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.pf-num{font-family:'Unbounded',sans-serif;font-size:clamp(4rem,8vw,8rem);font-weight:900;letter-spacing:-.05em;line-height:1}
+.pf-num.before{color:rgba(255,255,255,.15);text-decoration:line-through;text-decoration-color:rgba(232,98,74,.5)}
+.pf-num.after{color:var(--coral)}
+.pf-unit{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.pf-arrow{font-family:'Unbounded',sans-serif;font-size:2rem;color:rgba(255,255,255,.15);text-align:center}
+
+/* ══ WORLDWIDE ══ */
+.worldwide-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.ww-cell{background:#0f0f0f;padding:40px 44px}
+.ww-title{font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:-.01em;color:#fff;margin-bottom:28px}
+.country-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.country-row:last-child{border-bottom:none}
+.country-name{font-size:.82rem;font-weight:400;color:rgba(255,255,255,.7)}
+.country-bar-wrap{flex:1;margin:0 16px;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.country-bar{height:100%;background:var(--coral);border-radius:2px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.country-val{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.35)}
+
+/* ══ QUOTE ══ */
+.quote-block{padding:80px 48px;border-bottom:1px solid var(--rule);text-align:center;position:relative;overflow:hidden}
+.quote-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28rem;line-height:1;color:rgba(255,255,255,.02);font-family:'DM Sans',sans-serif;pointer-events:none;user-select:none}
+.quote-text{font-family:'DM Sans',sans-serif;font-size:clamp(1.2rem,2.5vw,2rem);font-style:italic;font-weight:300;color:rgba(255,255,255,.75);line-height:1.6;max-width:780px;margin:0 auto 32px;position:relative;z-index:1}
+.quote-source{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);position:relative;z-index:1}
+
+/* ══ NEXT PROJECT ══ */
+#next{padding:80px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);transition:background .3s}
+#next:hover{background:#111}
+.next-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.next-name{font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,3.5vw,4rem);font-weight:700;letter-spacing:-.03em;color:#fff}
+.next-arrow{font-size:3rem;color:rgba(255,255,255,.2);transition:transform .4s cubic-bezier(.34,1.56,.64,1),color .3s}
+#next:hover .next-arrow{transform:rotate(-45deg);color:#fff}
+
+/* ══ FOOTER ══ */
+footer{padding:24px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule)}
+.ft-name{font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:24px}
+.ft-links a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.6)}
+.ft-copy{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:rgba(255,255,255,.12)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+  .rv.on{opacity:1;transform:translateY(0)}
+}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ══ OVERVIEW GRID ══ */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+
+/* ══ MOBILE ══ */
+@media(max-width:900px){
+  #nav,#hero,.sec,.quote-block,#next,footer{padding-left:24px;padding-right:24px}
+  #nav.stuck{padding-left:24px;padding-right:24px}
+  .nav-r .nav-back span{display:none}
+  .hero-h1{font-size:clamp(2.8rem,10vw,6rem)}
+  /* Hide decorative client logo — prevents flex overflow on narrow screens */
+  .hero-client-logo{display:none}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .hf-cell:nth-child(3){border-top:1px solid var(--rule)}
+  .hf-cell:nth-child(4){border-top:1px solid var(--rule);border-right:none}
+  .hf-cell:nth-child(2n){border-right:none}
+  /* Reset left-padding for cells that start a new row in the 2-col grid */
+  .hf-cell:nth-child(odd):not(:first-child){padding-left:0}
+  .problem-grid{grid-template-columns:1fr 1fr}
+  .sol-row{grid-template-columns:40px 1fr;gap:20px}
+  .sol-desc{display:none}
+  /* Disable hover indent on touch — no hover state on mobile */
+  .sol-row:hover{padding-left:0}
+  .scores-wrap{grid-template-columns:1fr}
+  .score-row{grid-template-columns:repeat(4,1fr)}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .pages-flip{grid-template-columns:1fr auto 1fr}
+  .worldwide-grid{grid-template-columns:1fr}
+  /* Collapse overview 2-col grid to single column */
+  .overview-grid{grid-template-columns:1fr;gap:40px}
+  .sec{padding:72px 24px}
+  footer{flex-direction:column;gap:16px;text-align:center}
+  .ft-links{flex-wrap:wrap;justify-content:center}
+  /* Reduce quote padding */
+  .quote-block{padding:56px 24px}
+  /* Next project section */
+  #next{padding:56px 24px}
+}
+@media(max-width:480px){
+  .problem-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr}
+  .score-row{grid-template-columns:repeat(2,1fr);gap:20px}
+  /* Keep hero foot 2-col — works fine at this size */
+  .hero-foot{grid-template-columns:1fr 1fr}
+  #next{flex-direction:column;align-items:flex-start;gap:24px}
+  /* Compact nav button so it doesn't overflow */
+  .nav-btn{padding:9px 14px;font-size:.55rem;letter-spacing:.10em}
+  /* Score rings slightly smaller to fit 2-per-row comfortably */
+  .score-ring{width:56px;height:56px;font-size:.9rem}
+  /* Pages flip — shrink huge numbers a touch on very small screens */
+  .pf-num{font-size:clamp(3rem,18vw,6rem)}
+  /* Scores side padding */
+  .scores-side{padding:32px 24px}
+  /* Stat cards tighter */
+  .stat-card{padding:36px 24px}
+  /* ww-cell padding */
+  .ww-cell{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="../index.html" class="nav-logo">RAGHAV<span>.</span></a>
+  <div class="nav-r">
+    <a href="/work.html" class="nav-back">← <span>All Projects</span></a>
+    <a href="https://calendar.app.google/MoW1h2CuBDCBLCjPA" target="_blank" class="nav-btn">Book a Call ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-brand-bg"></div>
+  <div class="hero-dots"></div>
+
+  <div class="hero-top rv">
+    <div class="hero-tag-row">
+      <span class="htag accent">SEO Strategy</span>
+      <span class="htag">Digital Growth</span>
+      <span class="htag">Content Optimisation</span>
+      <span class="htag">2024</span>
+    </div>
+    <div class="hero-client-logo">cambio!</div>
+  </div>
+
+  <h1 class="hero-h1 rv">
+    CAMBIO
+    <span class="sub">SEO Growth Strategy — House of Social Change</span>
+  </h1>
+
+  <div class="hero-foot rv">
+    <div class="hf-cell">
+      <div class="hf-label">Client</div>
+      <div class="hf-val">Cambio Consultancy UK</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Role</div>
+      <div class="hf-val">SEO Strategist & Digital Marketing Executive</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Result</div>
+      <div class="hf-val">646% New User Growth</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">SEO Score</div>
+      <div class="hf-val">85 → 100 / 100</div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="sec">
+  <div class="sec-eyebrow rv">01 — Overview</div>
+  <h2 class="sec-h rv d1">The Brief</h2>
+  <div class="overview-grid rv d2">
+    <div>
+      <p style="font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.65);line-height:2;margin-bottom:24px">
+        CAMBIO is a consultancy focused on social entrepreneurship and sustainable leadership — operating as a <em style="color:#fff;font-style:normal;font-weight:500">House of Social Change</em>. When I joined, the site had significant SEO issues holding back its organic visibility and digital reach.
+      </p>
+      <p style="font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.65);line-height:2">
+        I was brought in as Digital Marketing Executive to audit, fix, and grow the site's search performance — from a cluttered 26-page architecture down to a clean, crawlable 8-page structure, with measurable results in organic traffic and worldwide visibility.
+      </p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;background:var(--rule);border:1px solid var(--rule)">
+      <div style="background:#0f0f0f;padding:32px 36px">
+        <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px">Industry</div>
+        <div style="font-size:.92rem;font-weight:400;color:#fff">Social Entrepreneurship · Sustainable Leadership</div>
+      </div>
+      <div style="background:#0f0f0f;padding:32px 36px">
+        <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px">Platform</div>
+        <div style="font-size:.92rem;font-weight:400;color:#fff">WordPress + Yoast SEO</div>
+      </div>
+      <div style="background:#0f0f0f;padding:32px 36px">
+        <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px">Duration</div>
+        <div style="font-size:.92rem;font-weight:400;color:#fff">Ongoing — 2024</div>
+      </div>
+      <div style="background:#0f0f0f;padding:32px 36px">
+        <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px">Tools Used</div>
+        <div style="font-size:.92rem;font-weight:400;color:#fff">Google Search Console · GA4 · Yoast · PageSpeed Insights · ChatGPT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="sec">
+  <div class="sec-eyebrow rv">02 — Problems Identified</div>
+  <h2 class="sec-h rv d1">What was<br>broken.</h2>
+  <div class="problem-grid rv d2">
+    <div class="prob-card">
+      <div class="prob-n">01</div>
+      <div class="prob-title">Missing Keywords</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-n">02</div>
+      <div class="prob-title">No Meta Descriptions or Titles</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-n">03</div>
+      <div class="prob-title">Cluttered Architecture<br><span style="font-weight:300;opacity:.5;font-size:.85em">26 pages — 5 extras</span></div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-n">04</div>
+      <div class="prob-title">Unoptimized Images</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-n">05</div>
+      <div class="prob-title">Domain Redirects<br><span style="font-weight:300;opacity:.5;font-size:.85em">/2020 redirect loops</span></div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-n">06</div>
+      <div class="prob-title">Poor Content Alignment</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="sec">
+  <div class="sec-eyebrow rv">03 — Solutions</div>
+  <h2 class="sec-h rv d1">What I did.</h2>
+  <div class="sol-list rv d2">
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Decluttered Site Architecture</div>
+      <div class="sol-desc">Reduced the site from 26 pages down to 8 focused pages — improving navigation, page load times, and SEO crawl efficiency. Each remaining page was given a clear purpose, strong CTAs, and improved readability.</div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Meta Descriptions & Title Tags</div>
+      <div class="sol-desc">Wrote and implemented keyword-rich meta titles and descriptions for every page using Yoast SEO, ensuring proper SERP representation and click-through optimisation for all major search engines.</div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Google Crawlers Optimisation</div>
+      <div class="sol-desc">Fixed domain redirect issues (/2020), optimised robots.txt, and ensured all key pages were fully indexable by Google and Bing. Crawlability confirmed via Google Search Console.</div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Keyword Research & Mapping</div>
+      <div class="sol-desc">Built a comprehensive keyword research spreadsheet (stored on SharePoint) using a custom ChatGPT prompt — covering 20+ high-impact UK keywords per blog with theme, intent, volume, and CPC data. Mapped keywords to Yoast focus keyphrase fields.</div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Image Optimisation</div>
+      <div class="sol-desc">Compressed and re-formatted all images across the site, added descriptive alt tags, and implemented lazy loading to improve page performance scores.</div>
+    </div>
+
+    <div class="sol-row">
+      <div class="sol-check">✓</div>
+      <div class="sol-title">Content Alignment & Blog SEO</div>
+      <div class="sol-desc">Restructured blog content around focus keyphrases. Ensured keyphrase density, subheadings, internal links, and content length aligned with Yoast green-light requirements across all published posts.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PAGESPEED -->
+<section class="sec">
+  <div class="sec-eyebrow rv">04 — Technical Performance</div>
+  <h2 class="sec-h rv d1">PageSpeed<br>scores.</h2>
+
+  <div class="scores-wrap rv d1">
+    <div class="scores-side before">
+      <div class="scores-side-label">Before</div>
+      <div class="score-row">
+        <div class="score-item perf">
+          <div class="score-ring">37</div>
+          <div class="score-name">Performance</div>
+        </div>
+        <div class="score-item access">
+          <div class="score-ring">87</div>
+          <div class="score-name">Accessibility</div>
+        </div>
+        <div class="score-item bp">
+          <div class="score-ring">92</div>
+          <div class="score-name">Best Practices</div>
+        </div>
+        <div class="score-item seo" style="--c:rgba(255,200,60,.6)">
+          <div class="score-ring" style="border-color:rgba(255,200,60,.6);color:#ffc83c">85</div>
+          <div class="score-name">SEO</div>
+        </div>
+      </div>
+    </div>
+    <div class="scores-side after">
+      <div class="scores-side-label">After</div>
+      <div class="score-row">
+        <div class="score-item">
+          <div class="score-ring">91</div>
+          <div class="score-name">Performance</div>
+        </div>
+        <div class="score-item">
+          <div class="score-ring">94</div>
+          <div class="score-name">Accessibility</div>
+        </div>
+        <div class="score-item">
+          <div class="score-ring">100</div>
+          <div class="score-name">Best Practices</div>
+        </div>
+        <div class="score-item">
+          <div class="score-ring">100</div>
+          <div class="score-name">SEO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:-2px" class="rv d2">Source: pagespeed.web.dev/analysis/https-cambioconsultancy-uk</p>
+
+  <!-- Pages before/after -->
+  <div class="pages-flip rv d3">
+    <div class="pf-side">
+      <div class="pf-label">Before</div>
+      <div class="pf-num before">26</div>
+      <div class="pf-unit">Pages</div>
+    </div>
+    <div class="pf-arrow">→</div>
+    <div class="pf-side">
+      <div class="pf-label">After</div>
+      <div class="pf-num after">8</div>
+      <div class="pf-unit">Pages</div>
+    </div>
+  </div>
+
+  <p style="font-size:.88rem;font-weight:300;color:rgba(255,255,255,.4);line-height:1.9;max-width:600px" class="rv d3">
+    Decluttering the site architecture resulted in faster load times, higher conversion rates from clear CTAs, improved mobile optimisation, and lower maintenance overhead — while strengthening brand focus.
+  </p>
+</section>
+
+<!-- RESULTS -->
+<section class="sec">
+  <div class="sec-eyebrow rv">05 — Results</div>
+  <h2 class="sec-h rv d1">Numbers that<br>speak.</h2>
+
+  <div class="stats-grid rv d1">
+    <div class="stat-card">
+      <div class="stat-label">New User Growth</div>
+      <div class="stat-n">646<span>%</span></div>
+      <div class="stat-sub">↑646.1% growth in new users since joining. Gradual, sustained growth post-optimisation.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Active Users (90 days)</div>
+      <div class="stat-n">2.2<span>K</span></div>
+      <div class="stat-sub">↑624.2% in active users. 2.5K new users in the reporting period.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Event Count</div>
+      <div class="stat-n">11<span>K</span></div>
+      <div class="stat-sub">↑523.6% increase in total events — reflecting deeper on-site engagement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORLDWIDE -->
+<section class="sec">
+  <div class="sec-eyebrow rv">06 — Global Reach</div>
+  <h2 class="sec-h rv d1">Worldwide<br>visibility.</h2>
+  <div class="worldwide-grid rv d1">
+    <div class="ww-cell">
+      <div class="ww-title">Top Countries by Active Users</div>
+      <div class="country-row">
+        <span class="country-name">China</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:100%" data-w="100"></div></div>
+        <span class="country-val">724</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">United Kingdom</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="54"></div></div>
+        <span class="country-val">389</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">United States</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="39"></div></div>
+        <span class="country-val">284</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">Singapore</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="24"></div></div>
+        <span class="country-val">171</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">Ireland</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="14"></div></div>
+        <span class="country-val">102</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">Netherlands</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="13"></div></div>
+        <span class="country-val">97</span>
+      </div>
+      <div class="country-row">
+        <span class="country-name">Germany</span>
+        <div class="country-bar-wrap"><div class="country-bar" style="width:0" data-w="7"></div></div>
+        <span class="country-val">50</span>
+      </div>
+    </div>
+    <div class="ww-cell" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:24px;padding:64px 44px">
+      <div style="font-family:'Unbounded',sans-serif;font-size:clamp(3rem,5vw,6rem);font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff">7<span style="color:var(--coral)">+</span></div>
+      <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3)">Countries Reached</div>
+      <div style="width:1px;height:40px;background:var(--rule)"></div>
+      <div style="font-size:.9rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.8;max-width:240px">SEO improvements drove organic visibility far beyond the UK market.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-block">
+  <div class="quote-bg">"</div>
+  <p class="quote-text">"Raghav was an absolute pleasure to work with. He brought a great mix of professionalism and a laid-back, easygoing style that made collaboration genuinely enjoyable. Grounded, thoughtful, and quietly confident."</p>
+  <div class="quote-source">Julius Ibrahim — International Marketing Director, CAMBIO</div>
+</div>
+
+<!-- NEXT PROJECT -->
+<a href="/work.html" id="next">
+  <div>
+    <div class="next-label">Next Project</div>
+    <div class="next-name">View All Work</div>
+  </div>
+  <div class="next-arrow">→</div>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-name">RAGHAV.</span>
+  <ul class="ft-links">
+    <li><a href="https://www.linkedin.com/in/raghav2003" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/wthraghav/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.x.com/wthraghav/" target="_blank">X</a></li>
+    <li><a href="/index.html">Home</a></li>
+  </ul>
+  <span class="ft-copy">© 2025 Raghav. All rights reserved.</span>
+</footer>
+
+<script>
+// Nav
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60), {passive:true});
+
+// Reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }});
+}, {threshold:.07});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// Animate country bars on scroll
+const barIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.country-bar').forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.width = (bar.dataset.w || '0') + '%';
+        }, i * 120);
+      });
+      barIo.unobserve(e.target);
+    }
+  });
+}, {threshold:.3});
+document.querySelectorAll('.ww-cell').forEach(el => barIo.observe(el));
+</script>
+</body>
+</html>

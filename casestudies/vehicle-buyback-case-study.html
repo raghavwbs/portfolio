@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paid Social — Online Car-Buying Service · Raghav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+:root{
+  --blue:#3FD68C;
+  --blue-lt:#6EE6AC;
+  --blue-dim:rgba(63,214,140,0.15);
+  --green:#5B7FFF;
+  --amber:#FFC72C;
+  --rule:rgba(255,255,255,0.07);
+  --card:#0f0f0f;
+}
+
+/* ══ NAV ══ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:padding .4s,background .4s;border-bottom:1px solid transparent}
+#nav.stuck{padding:14px 48px;background:rgba(10,10,10,.97);backdrop-filter:blur(16px);border-color:var(--rule)}
+.nav-logo{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+.nav-logo span{opacity:.25}
+.nav-r{display:flex;align-items:center;gap:24px}
+.nav-back{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s;display:flex;align-items:center;gap:8px}
+.nav-back:hover{color:#fff}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:10px 20px;border:1.5px solid rgba(255,255,255,.3);color:#fff;transition:background .25s,border-color .25s}
+.nav-btn:hover{background:#fff;color:#0a0a0a;border-color:#fff}
+
+/* ══ HERO ══ */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:130px 48px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(63,214,140,.14) 0%,transparent 60%),radial-gradient(ellipse 35% 40% at 5% 70%,rgba(91,127,255,.06) 0%,transparent 60%);pointer-events:none}
+.hero-tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:48px;position:relative;z-index:1}
+.htag{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--rule);color:rgba(255,255,255,.4)}
+.htag.blue{border-color:rgba(63,214,140,.5);color:var(--blue-lt)}
+.htag.green{border-color:rgba(91,127,255,.4);color:var(--green)}
+.htag.amber{border-color:rgba(255,199,44,.4);color:var(--amber)}
+.hero-h1{font-family:'Unbounded',sans-serif;font-size:clamp(2.6rem,6.5vw,8.5rem);font-weight:900;letter-spacing:-.04em;line-height:.9;position:relative;z-index:1;margin-bottom:52px}
+.hero-h1 .accent{color:var(--blue-lt)}
+.hero-h1 .sub{display:block;font-style:italic;font-weight:300;font-family:'DM Sans',sans-serif;font-size:.28em;letter-spacing:-.01em;color:rgba(255,255,255,.35);margin-top:14px}
+.hero-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);position:relative;z-index:1}
+.hf-cell{padding:28px 0;border-right:1px solid var(--rule)}
+.hf-cell:last-child{border-right:none}
+.hf-cell:not(:first-child){padding-left:28px}
+.hf-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.hf-val{font-size:.9rem;font-weight:400;color:#fff;line-height:1.4}
+
+/* ══ SECTIONS ══ */
+.sec{padding:90px 48px;border-bottom:1px solid var(--rule)}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--blue-lt);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-eyebrow::before{content:'';width:22px;height:1px;background:var(--blue-lt);flex-shrink:0}
+.sec-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.8rem,3.5vw,4rem);font-weight:700;letter-spacing:-.035em;line-height:.95;margin-bottom:56px}
+
+/* ══ CAMPAIGN OVERVIEW CARDS ══ */
+.campaign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.c-card{background:var(--card);padding:40px 36px;position:relative;overflow:hidden;transition:background .3s}
+.c-card:hover{background:#161616}
+.c-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:transform .4s cubic-bezier(.22,1,.36,1);transform:scaleX(0);transform-origin:left}
+.c-card:hover::before{transform:scaleX(1)}
+.c-card.tof::before{background:var(--blue)}
+.c-card.rmkt::before{background:var(--green)}
+.c-card.pg::before{background:var(--amber)}
+.c-card-num{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:rgba(255,255,255,.2);margin-bottom:20px}
+.c-card-name{font-family:'Unbounded',sans-serif;font-size:clamp(.9rem,1.3vw,1.1rem);font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#fff;margin-bottom:28px}
+.c-card-rows{display:flex;flex-direction:column;gap:14px}
+.c-row{display:flex;flex-direction:column;gap:3px}
+.c-row-label{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.c-row-val{font-size:.84rem;font-weight:400;color:rgba(255,255,255,.75);line-height:1.4}
+.c-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:0;margin-top:20px}
+.c-badge.blue{background:var(--blue-dim);color:var(--blue-lt);border:1px solid rgba(63,214,140,.25)}
+.c-badge.green{background:rgba(91,127,255,.1);color:var(--green);border:1px solid rgba(91,127,255,.2)}
+.c-badge.amber{background:rgba(255,199,44,.1);color:var(--amber);border:1px solid rgba(255,199,44,.2)}
+
+/* ══ STAT STRIP ══ */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3px}
+.stat-box{background:var(--card);padding:40px 36px;transition:background .3s}
+.stat-box:hover{background:#161616}
+.stat-n{font-family:'Unbounded',sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#fff}
+.stat-n.blue{color:var(--blue-lt)}
+.stat-n.green{color:var(--green)}
+.stat-n.amber{color:var(--amber)}
+.stat-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.stat-sub{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.5}
+
+/* ══ CHART BLOCK ══ */
+.chart-wrap{background:var(--card);border:1px solid var(--rule);padding:36px;position:relative}
+.chart-title{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:28px}
+.chart-area{position:relative;height:200px;width:100%}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);border:1px solid var(--rule)}
+
+/* ══ CAMPAIGN SECTION ══ */
+.campaign-sec{padding:90px 48px;border-bottom:1px solid var(--rule)}
+.camp-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:40px}
+.camp-eyebrow{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px}
+.camp-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,3vw,3.2rem);font-weight:700;letter-spacing:-.035em;line-height:.95;color:#fff}
+.camp-tag{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border:1px solid;white-space:nowrap;align-self:flex-end}
+.camp-tag.blue{border-color:rgba(63,214,140,.4);color:var(--blue-lt)}
+.camp-tag.green{border-color:rgba(91,127,255,.35);color:var(--green)}
+
+/* ══ FUNNEL DIAGRAM ══ */
+.fd-wrap{display:flex;flex-direction:column;align-items:center;margin:0 auto 72px;max-width:620px}
+.fd-tier{width:100%;padding:32px 20px;text-align:center;clip-path:polygon(4% 0,96% 0,86% 100%,14% 100%)}
+.fd-tier.t1{background:linear-gradient(135deg,var(--blue),#1f9159)}
+.fd-tier.t2{width:68%;margin-top:-2px;background:linear-gradient(135deg,var(--green),#2c3fb0)}
+.fd-tier.t3{width:38%;margin-top:-2px;background:linear-gradient(135deg,var(--amber),#b8850f)}
+.fd-value{font-family:'Unbounded',sans-serif;font-size:clamp(1.3rem,2.6vw,2.1rem);font-weight:900;letter-spacing:-.03em;color:#0a0a0a;line-height:1}
+.fd-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,10,.6);margin-top:8px}
+.fd-connector{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:rgba(255,255,255,.4);padding:14px 0;text-align:center}
+@media(max-width:520px){
+  .fd-tier{padding:22px 16px}
+  .fd-connector{font-size:.56rem;padding:10px 0}
+}
+
+/* ══ FUNNEL WORKFLOW ══ */
+.funnel-wrap{display:flex;flex-direction:column;gap:0}
+.funnel-stage{border:1px solid var(--rule);background:var(--card);transition:background .3s}
+.funnel-stage:hover{background:#161616}
+.funnel-stage-inner{padding:48px 44px}
+.tof-stage{border-color:rgba(63,214,140,.25)}
+.rmkt-stage{border-color:rgba(91,127,255,.25)}
+.funnel-stage-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+.funnel-stage-name{font-family:'Unbounded',sans-serif;font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:#fff;margin-bottom:20px}
+.tof-stage .funnel-stage-name{color:var(--blue-lt)}
+.rmkt-stage .funnel-stage-name{color:var(--green)}
+.funnel-stage-name span{display:block;font-size:.6em;font-weight:300;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;letter-spacing:-.01em;margin-top:4px}
+.funnel-stage-desc{font-size:.86rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.9;max-width:660px;margin-bottom:32px}
+.funnel-metrics{display:flex;gap:2px;margin-bottom:24px;background:rgba(255,255,255,.04);border:1px solid var(--rule);flex-wrap:wrap}
+.fm{padding:20px 28px;flex:1;min-width:120px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+.fm:last-child{border-right:none}
+.fm.green .fm-n{color:var(--green)}
+.fm-n{font-family:'Unbounded',sans-serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:700;letter-spacing:-.03em;color:var(--blue-lt);line-height:1}
+.fm-l{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.funnel-tags{display:flex;gap:8px;flex-wrap:wrap}
+.ftag{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--rule);color:rgba(255,255,255,.35)}
+.ftag.green{border-color:rgba(91,127,255,.3);color:var(--green)}
+.funnel-arrow{display:flex;flex-direction:column;align-items:center;gap:0;padding:0 48px;position:relative}
+.funnel-arrow-line{width:1px;height:28px;background:linear-gradient(to bottom,var(--rule),rgba(255,255,255,.12))}
+.funnel-arrow-label{display:flex;align-items:flex-start;gap:16px;padding:20px 32px;background:#080808;border:1px solid var(--rule);width:100%;border-left:3px solid var(--blue);margin:0}
+.funnel-arrow-icon{font-size:1.2rem;color:var(--blue-lt);flex-shrink:0;margin-top:-2px}
+.funnel-arrow-label span:last-child{font-size:.8rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85}
+.funnel-pixel{display:flex;align-items:flex-start;gap:28px;padding:32px 44px;background:#0d0d0d;border:1px solid rgba(255,255,255,.05);border-left:3px solid rgba(255,255,255,.1)}
+.pixel-icon{font-family:'DM Mono',monospace;font-size:1.8rem;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;padding-top:4px}
+.pixel-title{font-family:'Unbounded',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:-.01em;color:rgba(255,255,255,.6);margin-bottom:10px}
+.pixel-desc{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.85}
+.funnel-result{background:var(--card);border:1px solid var(--rule);padding:40px 44px}
+.fr-label{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:28px}
+.fr-stats{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.fr-stat{flex:1;min-width:160px;display:flex;flex-direction:column;gap:6px;padding:0 32px}
+.fr-stat:first-child{padding-left:0}
+.fr-n{font-family:'Unbounded',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.04em;color:#fff;line-height:1}
+.fr-n.blue{color:var(--blue-lt)}
+.fr-l{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.5}
+.fr-divider{width:1px;height:60px;background:var(--rule);flex-shrink:0}
+
+@media(max-width:900px){
+  .funnel-stage-inner{padding:32px 24px}
+  .funnel-arrow{padding:0 24px}
+  .funnel-arrow-label{padding:16px 20px;gap:12px}
+  .funnel-pixel{padding:24px 24px;gap:20px}
+  .pixel-icon{font-size:1.4rem}
+  .funnel-result{padding:28px 24px}
+  .fr-stats{gap:0}
+  .fr-stat{padding:0 20px;min-width:120px}
+  .fr-stat:first-child{padding-left:0}
+  .fr-divider{height:44px}
+  .fm{padding:16px 20px;min-width:100px}
+}
+@media(max-width:520px){
+  .funnel-stage-inner{padding:28px 18px}
+  .funnel-arrow{padding:0 18px}
+  .funnel-arrow-label{flex-direction:column;gap:8px}
+  .funnel-arrow-label span:last-child{font-size:.76rem}
+  .funnel-pixel{flex-direction:column;padding:20px 18px;gap:12px}
+  .funnel-result{padding:24px 18px}
+  .fr-stats{flex-direction:column;gap:20px}
+  .fr-stat{padding:0;min-width:auto}
+  .fr-divider{display:none}
+  .funnel-metrics{flex-direction:column}
+  .fm{border-right:none;border-bottom:1px solid var(--rule);padding:14px 16px}
+  .fm:last-child{border-bottom:none}
+}
+
+/* ══ INSIGHT BLOCK ══ */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule)}
+.insight{background:var(--card);padding:36px 32px;transition:background .3s}
+.insight:hover{background:#161616}
+.insight-icon{font-size:1.4rem;margin-bottom:18px;display:block}
+.insight-title{font-family:'Unbounded',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:-.01em;color:#fff;margin-bottom:10px;line-height:1.3}
+.insight-body{font-size:.8rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.85}
+
+/* ══ FOOTNOTE ══ */
+.footnote{padding:32px 48px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:16px}
+.footnote-icon{font-size:.8rem;color:rgba(255,255,255,.2);flex-shrink:0}
+.footnote-text{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;color:rgba(255,255,255,.2);line-height:1.8}
+
+/* ══ NEXT ══ */
+#next{padding:72px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);transition:background .3s}
+#next:hover{background:#111}
+.next-label{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
+.next-name{font-family:'Unbounded',sans-serif;font-size:clamp(1.5rem,3vw,3.5rem);font-weight:700;letter-spacing:-.03em;color:#fff}
+.next-arrow{font-size:2.5rem;color:rgba(255,255,255,.2);transition:transform .4s cubic-bezier(.34,1.56,.64,1),color .3s;flex-shrink:0}
+#next:hover .next-arrow{transform:rotate(-45deg);color:#fff}
+
+/* ══ FOOTER ══ */
+footer{padding:22px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule)}
+.ft-name{font-family:'Unbounded',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:22px}
+.ft-links a{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.6)}
+.ft-copy{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.08em;color:rgba(255,255,255,.12)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .rv.on{opacity:1;transform:translateY(0)}
+}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* ══ MOBILE ══ */
+@media(max-width:900px){
+  #nav,#hero,.sec,.campaign-sec,.footnote,#next,footer{padding-left:20px;padding-right:20px}
+  #nav.stuck{padding-left:20px;padding-right:20px}
+  .nav-r .nav-back span{display:none}
+  .nav-btn{padding:9px 14px;font-size:.55rem}
+  #hero{padding-top:100px}
+  .hero-h1{font-size:clamp(2rem,8.5vw,4rem);margin-bottom:36px}
+  .hero-h1 .sub{font-size:.32em;margin-top:10px}
+  .hero-tag-row{gap:6px;margin-bottom:36px}
+  .htag{font-size:.5rem;padding:5px 10px}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .hf-cell{padding:20px 0}
+  .hf-cell:nth-child(3){border-top:1px solid var(--rule)}
+  .hf-cell:nth-child(4){border-top:1px solid var(--rule);border-right:none}
+  .hf-cell:nth-child(2n){border-right:none}
+  .hf-label{font-size:.48rem}
+  .hf-val{font-size:.82rem}
+  .sec{padding:64px 20px}
+  .campaign-sec{padding:64px 20px}
+  .sec-h{font-size:clamp(1.6rem,6vw,2.4rem);margin-bottom:40px}
+  .camp-h{font-size:clamp(1.4rem,5.5vw,2.2rem)}
+  .camp-header{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:32px}
+  .camp-tag{font-size:.46rem;padding:5px 10px}
+  .campaign-grid{grid-template-columns:1fr}
+  .c-card{padding:32px 24px}
+  .c-card-name{font-size:.92rem;margin-bottom:20px}
+  .c-row-val{font-size:.8rem}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .stat-box{padding:28px 20px}
+  .stat-n{font-size:clamp(1.8rem,7vw,2.8rem)}
+  .stat-label{font-size:.48rem}
+  .stat-sub{font-size:.72rem}
+  .chart-grid-2{grid-template-columns:1fr}
+  .chart-wrap{padding:24px 20px}
+  .chart-area{height:180px}
+  .chart-title{font-size:.5rem;margin-bottom:20px}
+  .insight-grid{grid-template-columns:1fr}
+  .insight{padding:28px 24px}
+  .insight-icon{font-size:1.2rem;margin-bottom:14px}
+  .insight-title{font-size:.84rem}
+  .insight-body{font-size:.76rem}
+  .footnote{padding:24px 20px;gap:12px;flex-direction:column;align-items:flex-start}
+  .footnote-text{font-size:.52rem}
+  #next{padding:56px 20px;gap:20px}
+  .next-name{font-size:clamp(1.4rem,5.5vw,2.5rem)}
+  .next-arrow{font-size:2rem}
+  footer{flex-direction:column;gap:14px;text-align:center;padding:20px}
+  .ft-links{flex-wrap:wrap;justify-content:center;gap:16px}
+  .ft-name{font-size:.7rem}
+  .ft-copy{font-size:.5rem}
+}
+@media(max-width:480px){
+  #nav{padding:18px 18px}
+  #nav.stuck{padding:14px 18px}
+  .nav-logo{font-size:.85rem}
+  #hero{padding:90px 18px 0}
+  .hero-h1{font-size:clamp(1.9rem,9.5vw,3.2rem)}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .sec{padding:52px 18px}
+  .campaign-sec{padding:52px 18px}
+  .sec-h{margin-bottom:32px}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .stat-box{padding:22px 16px}
+  .stat-n{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .c-card{padding:26px 20px}
+  .chart-area{height:150px}
+  .insight{padding:24px 18px}
+  #next{flex-direction:column;align-items:flex-start;padding:48px 18px;gap:16px}
+  footer{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="../index.html" class="nav-logo">RAGHAV<span>.</span></a>
+  <div class="nav-r">
+    <a href="../work.html" class="nav-back">← <span>All Projects</span></a>
+    <a href="https://raghavg.me/call" target="_blank" class="nav-btn">Book a Call ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag-row">
+    <span class="htag blue">Paid Social Ads</span>
+    <span class="htag blue">Facebook & Instagram</span>
+    <span class="htag">Car Buying</span>
+    <span class="htag">FY 2026</span>
+    <span class="htag green">476 Quote Accepts</span>
+    <span class="htag amber">£70/day Budget</span>
+  </div>
+  <h1 class="hero-h1">
+    ONLINE CAR<br><span class="accent">BUYING</span>
+    <span class="sub">UK-Based Online Car-Buying Service · Full-Funnel Paid Social · FY 2026</span>
+  </h1>
+  <p style="max-width:640px;font-size:.95rem;font-weight:300;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:40px;position:relative;z-index:1">
+    <strong style="color:#fff;font-weight:500">What this business does:</strong> a UK-based online car-buying service — sellers get a 60-second quote for their car or van in any condition, damaged, scrapped, or just old, with free UK-wide collection and payment within minutes.
+  </p>
+  <div class="hero-foot">
+    <div class="hf-cell">
+      <div class="hf-label">Business</div>
+      <div class="hf-val">UK-based online car-buying service</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Period</div>
+      <div class="hf-val">Aug 2025 – Jul 2026</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Platforms</div>
+      <div class="hf-val">Facebook · Instagram · YouTube</div>
+    </div>
+    <div class="hf-cell">
+      <div class="hf-label">Role</div>
+      <div class="hf-val">Built, launched & run the full paid social campaign</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGN OVERVIEW -->
+<section class="sec">
+  <div class="sec-eyebrow rv">01 — Campaign Overview</div>
+  <h2 class="sec-h rv d1">Three campaigns I built.<br>One buy-back funnel.</h2>
+  <div class="campaign-grid rv d2">
+
+    <div class="c-card tof">
+      <div class="c-card-num">01</div>
+      <div class="c-card-name">Top-of-Funnel<br>Awareness</div>
+      <div class="c-card-rows">
+        <div class="c-row">
+          <span class="c-row-label">Goal</span>
+          <span class="c-row-val">Maximum daily reach</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Audience</span>
+          <span class="c-row-val">Interest-based: competitor services, used cars — 18–65, All UK</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Daily Budget</span>
+          <span class="c-row-val">£20 / day</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Channel</span>
+          <span class="c-row-val">Facebook & Instagram</span>
+        </div>
+      </div>
+      <span class="c-badge blue">Cold Audience</span>
+    </div>
+
+    <div class="c-card rmkt">
+      <div class="c-card-num">02</div>
+      <div class="c-card-name">Remarketing</div>
+      <div class="c-card-rows">
+        <div class="c-row">
+          <span class="c-row-label">Goal</span>
+          <span class="c-row-val">Re-engage funnel drop-offs</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Audience</span>
+          <span class="c-row-val">Pixel-based: site visitors + 75% video viewers who didn't accept a quote</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Daily Budget</span>
+          <span class="c-row-val">£40 / day</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Channel</span>
+          <span class="c-row-val">Facebook & Instagram</span>
+        </div>
+      </div>
+      <span class="c-badge green">Warm Audience</span>
+    </div>
+
+    <div class="c-card pg">
+      <div class="c-card-num">03</div>
+      <div class="c-card-name">Page Growth</div>
+      <div class="c-card-rows">
+        <div class="c-row">
+          <span class="c-row-label">Goal</span>
+          <span class="c-row-val">Follower & profile growth</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Audience</span>
+          <span class="c-row-val">Lookalike of existing followers — All UK</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Daily Budget</span>
+          <span class="c-row-val">£10 / day</span>
+        </div>
+        <div class="c-row">
+          <span class="c-row-label">Channel</span>
+          <span class="c-row-val">Facebook & Instagram</span>
+        </div>
+      </div>
+      <span class="c-badge amber">Broad Audience</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEMS FACED & SOLVED -->
+<section class="sec">
+  <div class="sec-eyebrow rv">02 — Problems Faced & Solved</div>
+  <h2 class="sec-h rv d1">I built this campaign.<br>Here's what I solved along the way.</h2>
+  <p class="rv d1" style="max-width:680px;font-size:.9rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85;margin-top:-32px;margin-bottom:48px">I planned, launched, and ran this three-campaign funnel end to end — top-of-funnel awareness, remarketing, and page growth. Here's what I ran into along the way, and what I built to fix it.</p>
+  <div class="insight-grid rv d1">
+    <div class="insight">
+      <span class="insight-icon">🎯</span>
+      <div class="insight-title">Cold reach was too expensive</div>
+      <p class="insight-body"><strong style="color:#fff;font-weight:500">Problem faced:</strong> the awareness campaign was optimised for Quote Accepts, so every cold impression competed for an expensive direct conversion.<br><br><strong style="color:var(--blue-lt);font-weight:500">Change I brought in:</strong> built the campaign around Maximum Reach instead, letting remarketing handle conversion downstream.<br><br><strong style="color:#fff;font-weight:500">Result: reach up 74%, spend down 67%.</strong></p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎨</span>
+      <div class="insight-title">Remarketing creative had gone stale</div>
+      <p class="insight-body"><strong style="color:#fff;font-weight:500">Problem faced:</strong> ad creative shown to warm, returning visitors no longer matched current branding and messaging.<br><br><strong style="color:var(--green);font-weight:500">Change I brought in:</strong> planned and shipped a full creative refresh for the remarketing audience.<br><br><strong style="color:#fff;font-weight:500">Result: cost per quote accept fell to £8.33, its lowest point all year.</strong></p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">⚖️</span>
+      <div class="insight-title">Budget wasn't matched to performance</div>
+      <p class="insight-body"><strong style="color:#fff;font-weight:500">Problem faced:</strong> daily spend was split across three campaigns with no clear read on which ones deserved more weight.<br><br><strong style="color:#fff;font-weight:500">Change I brought in:</strong> rebuilt the budget allocation from £180/day to £115/day based on what was actually converting.<br><br><strong style="color:#fff;font-weight:500">Result: 36% less spend, with output held or improved.</strong></p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎬</span>
+      <div class="insight-title">Page growth relied on paid production</div>
+      <p class="insight-body"><strong style="color:#fff;font-weight:500">Problem faced:</strong> follower-growth ads leaned on commissioned creative, pushing cost per follower up.<br><br><strong style="color:var(--amber);font-weight:500">Change I brought in:</strong> rebuilt the campaign around existing team-reel footage instead.<br><br><strong style="color:#fff;font-weight:500">Result: cost per follower down 75%, from £1.13 to £0.28.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- TOF RESULTS -->
+<div class="campaign-sec">
+  <div class="camp-header rv">
+    <div>
+      <div class="camp-eyebrow" style="color:var(--blue-lt)">03 — TOF Awareness Results</div>
+      <h2 class="camp-h">Reoptimising for reach,<br>not quote accepts.</h2>
+    </div>
+    <span class="camp-tag blue">Apr – Jul 2026 · Facebook & Instagram</span>
+  </div>
+
+  <div class="stat-strip rv d1">
+    <div class="stat-box">
+      <div class="stat-label">Reach</div>
+      <div class="stat-n blue">438K</div>
+      <div class="stat-sub">+74% vs. prior QA-optimised campaign (252K)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Media Spend</div>
+      <div class="stat-n">£2,435</div>
+      <div class="stat-sub">−67% vs. prior campaign (£7,442)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Impressions</div>
+      <div class="stat-n blue">2.44M</div>
+      <div class="stat-sub">Cumulative, Apr – Jul 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Cost / 1K Reach</div>
+      <div class="stat-n">£5.56</div>
+      <div class="stat-sub">Blended across the period</div>
+    </div>
+  </div>
+
+  <div class="chart-grid-2 rv d2" style="margin-top:3px">
+    <div class="chart-wrap">
+      <div class="chart-title">Monthly Reach — TOF</div>
+      <div class="chart-area">
+        <canvas id="tofReach"></canvas>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Monthly Spend (£) — TOF</div>
+      <div class="chart-area">
+        <canvas id="tofSpend"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REMARKETING RESULTS -->
+<div class="campaign-sec">
+  <div class="camp-header rv">
+    <div>
+      <div class="camp-eyebrow" style="color:var(--green)">04 — Remarketing Results</div>
+      <h2 class="camp-h">Turning funnel drop-offs<br>into quote accepts.</h2>
+    </div>
+    <span class="camp-tag green">Jan – Jul 2026 · Pixel-Based Audience</span>
+  </div>
+
+  <div class="stat-strip rv d1">
+    <div class="stat-box">
+      <div class="stat-label">Quote Accepts</div>
+      <div class="stat-n green">476</div>
+      <div class="stat-sub">Cumulative, Jan – Jul 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Cost / Quote Accept</div>
+      <div class="stat-n">£11.98</div>
+      <div class="stat-sub">Blended across the period</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Impressions</div>
+      <div class="stat-n green">825K</div>
+      <div class="stat-sub">Cumulative reach of the warm pool</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Daily Budget</div>
+      <div class="stat-n">£40</div>
+      <div class="stat-sub">Consistent allocation across the period</div>
+    </div>
+  </div>
+
+  <div class="chart-grid-2 rv d2" style="margin-top:3px">
+    <div class="chart-wrap">
+      <div class="chart-title">Monthly Quote Accepts — Remarketing</div>
+      <div class="chart-area">
+        <canvas id="rmktQA"></canvas>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Cost per Quote Accept (£) — Remarketing</div>
+      <div class="chart-area">
+        <canvas id="rmktCpqa"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKFLOW -->
+<section class="sec">
+  <div class="sec-eyebrow rv">05 — Campaign Workflow</div>
+  <h2 class="sec-h rv d1">How the<br>funnel worked.</h2>
+
+  <div class="fd-wrap rv d1">
+    <div class="fd-tier t1">
+      <div class="fd-value">438,000</div>
+      <div class="fd-label">People Reached — Top of Funnel</div>
+    </div>
+    <div class="fd-connector">↓ 41% entered the warm remarketing pool</div>
+    <div class="fd-tier t2">
+      <div class="fd-value">180,827</div>
+      <div class="fd-label">Engaged — Warm Remarketing Pool</div>
+    </div>
+    <div class="fd-connector">↓ Converted to a completed sale</div>
+    <div class="fd-tier t3">
+      <div class="fd-value">476</div>
+      <div class="fd-label">Quote Accepted</div>
+    </div>
+  </div>
+
+  <div class="funnel-wrap rv d1">
+
+    <div class="funnel-stage tof-stage">
+      <div class="funnel-stage-inner">
+        <div class="funnel-stage-label">Stage 01</div>
+        <div class="funnel-stage-name">Top of Funnel<br><span>Awareness — Reach Optimised</span></div>
+        <p class="funnel-stage-desc">In April 2026, the TOF objective was switched from Quote Accepts to Maximum Reach — showing the advert to as many unique UK car sellers as possible each day, rather than paying a premium to chase direct conversions cold.</p>
+        <div class="funnel-metrics">
+          <div class="fm">
+            <span class="fm-n">438K</span>
+            <span class="fm-l">Reach, Apr–Jul</span>
+          </div>
+          <div class="fm">
+            <span class="fm-n">2.44M</span>
+            <span class="fm-l">Impressions</span>
+          </div>
+          <div class="fm">
+            <span class="fm-n">£20</span>
+            <span class="fm-l">Daily budget</span>
+          </div>
+        </div>
+        <div class="funnel-tags">
+          <span class="ftag">Interest-based</span>
+          <span class="ftag">Cold audience</span>
+          <span class="ftag">Facebook & Instagram</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="funnel-arrow rv d2">
+      <div class="funnel-arrow-line"></div>
+      <div class="funnel-arrow-label">
+        <span class="funnel-arrow-icon">↓</span>
+        <span>Site visitors, 75%+ video viewers, and page engagers who didn't accept a quote were captured by the Meta Pixel and added to the warm remarketing pool.</span>
+      </div>
+      <div class="funnel-arrow-line"></div>
+    </div>
+
+    <div class="funnel-pixel rv d2">
+      <div class="pixel-icon">◎</div>
+      <div class="pixel-content">
+        <div class="pixel-title">Meta Pixel — Remarketing Pool</div>
+        <p class="pixel-desc">Tracked three Pixel events end-to-end: Page View, Initiate Checkout (Get a Quote click), and Lead (Quote Accept). Anyone who entered the journey but didn't accept a quote fed the remarketing audience — alongside video viewers and organic page engagers.</p>
+      </div>
+    </div>
+
+    <div class="funnel-arrow rv d2">
+      <div class="funnel-arrow-line"></div>
+      <div class="funnel-arrow-label">
+        <span class="funnel-arrow-icon">↓</span>
+        <span>Warm audience retargeted with refreshed creative, converting at roughly half the TOF campaign's implied cost.</span>
+      </div>
+      <div class="funnel-arrow-line"></div>
+    </div>
+
+    <div class="funnel-stage rmkt-stage">
+      <div class="funnel-stage-inner">
+        <div class="funnel-stage-label">Stage 02</div>
+        <div class="funnel-stage-name">Remarketing<br><span>Quote Accept Optimised</span></div>
+        <p class="funnel-stage-desc">Creative was refreshed in April 2026 to match current branding and tone of voice, pushing Cost/Quote Accept to its lowest point of the year before auction pressure pushed CPMs back up through Q2.</p>
+        <div class="funnel-metrics">
+          <div class="fm green">
+            <span class="fm-n">476</span>
+            <span class="fm-l">Quote accepts, Jan–Jul</span>
+          </div>
+          <div class="fm green">
+            <span class="fm-n">£11.98</span>
+            <span class="fm-l">Cost per quote accept</span>
+          </div>
+          <div class="fm">
+            <span class="fm-n">£40</span>
+            <span class="fm-l">Daily budget</span>
+          </div>
+        </div>
+        <div class="funnel-tags">
+          <span class="ftag green">Pixel-based</span>
+          <span class="ftag green">Warm audience</span>
+          <span class="ftag">Facebook & Instagram</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="funnel-result rv d3">
+      <div class="fr-label">Budget Reallocation Result</div>
+      <div class="fr-stats">
+        <div class="fr-stat">
+          <span class="fr-n">£180 → £115</span>
+          <span class="fr-l">Total daily spend cut −36% across all three campaigns</span>
+        </div>
+        <div class="fr-divider"></div>
+        <div class="fr-stat">
+          <span class="fr-n">−75%</span>
+          <span class="fr-l">Cost per follow fell from £1.13 to £0.28 over 12 months</span>
+        </div>
+        <div class="fr-divider"></div>
+        <div class="fr-stat">
+          <span class="fr-n blue">476</span>
+          <span class="fr-l">Quote accepts delivered on a leaner budget, Jan–Jul 2026</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- KEY INSIGHTS -->
+<section class="sec">
+  <div class="sec-eyebrow rv">06 — Key Insights</div>
+  <h2 class="sec-h rv d1">What the data<br>tells us.</h2>
+  <div class="insight-grid rv d1">
+    <div class="insight">
+      <span class="insight-icon">📈</span>
+      <div class="insight-title">Reach-Optimising TOF Was the Big Unlock</div>
+      <p class="insight-body">Switching the TOF objective from Quote Accepts to Reach lifted reach 74% (438K vs. 252K) while cutting spend 67% (£2,435 vs. £7,442) over the same four-month window — proof that TOF shouldn't be judged on conversion cost.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🔁</span>
+      <div class="insight-title">Remarketing Carries the Funnel</div>
+      <p class="insight-body">At £11.98 per quote accept, remarketing consistently outperforms cold TOF spend on direct conversions — because it draws on users who already showed intent via the Pixel.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎨</span>
+      <div class="insight-title">April's Creative Refresh Paid Off</div>
+      <p class="insight-body">Updating remarketing creative to current branding in April 2026 dropped Cost/Quote Accept to its yearly low of £8.33, before rising media costs pushed it back up through Q2.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">📉</span>
+      <div class="insight-title">Page Growth Got 4x More Efficient</div>
+      <p class="insight-body">Cost per follow/profile visit fell steadily from £1.13 to £0.28 across 12 months — even as the daily budget was cut in half — by rotating in existing team-reel content instead of paid production.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">⚡</span>
+      <div class="insight-title">Total Spend Cut 36%, Output Held</div>
+      <p class="insight-body">Rebalancing the daily budget from £180 to £115 across TOF, remarketing and page growth preserved — and in TOF's case, improved — output, freeing budget for further testing.</p>
+    </div>
+    <div class="insight">
+      <span class="insight-icon">🎯</span>
+      <div class="insight-title">Full-Funnel Pixel Tracking Enabled All of This</div>
+      <p class="insight-body">Page View, Initiate Checkout, and Lead events were verified live across every landing page — the remarketing audience simply doesn't exist without that instrumentation being correct first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTNOTE -->
+<div class="footnote rv">
+  <span class="footnote-icon">ℹ</span>
+  <p class="footnote-text">Figures are rounded from monthly ad-account reporting, Aug 2025 – Jul 2026. Presented for portfolio purposes as part of my role managing paid social for this brand.</p>
+</div>
+
+<!-- NEXT -->
+<a href="cashforcars-organic-social.html" id="next">
+  <div>
+    <div class="next-label">Next Project</div>
+    <div class="next-name">CashForCars.co.uk — Organic Social</div>
+  </div>
+  <div class="next-arrow">→</div>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-name">RAGHAV.</span>
+  <ul class="ft-links">
+    <li><a href="https://www.linkedin.com/in/raghav2003" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/wthraghav/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.x.com/wthraghav/" target="_blank">X</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+  <span class="ft-copy">© 2026 Raghav. All rights reserved.</span>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60), {passive:true});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }});
+}, {threshold:.07});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+function drawLineChart(canvasId, labels, datasets, opts = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    render(1);
+  }
+
+  let animFrame;
+  function render(progress) {
+    const W = canvas.width / dpr;
+    const H = canvas.height / dpr;
+    const pad = { top: 16, right: 16, bottom: 36, left: 44 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    let minVal = Infinity, maxVal = -Infinity;
+    datasets.forEach(ds => ds.data.forEach(v => { if(v < minVal) minVal = v; if(v > maxVal) maxVal = v; }));
+    minVal = Math.min(0, minVal);
+    const range = maxVal - minVal || 1;
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    const gridCount = 4;
+    for (let i = 0; i <= gridCount; i++) {
+      const y = pad.top + plotH - (i / gridCount) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(pad.left + plotW, y);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.font = `9px DM Mono, monospace`;
+      ctx.textAlign = 'right';
+      const val = minVal + (i / gridCount) * range;
+      ctx.fillText(opts.prefix ? opts.prefix + val.toFixed(opts.decimals||0) : val.toFixed(opts.decimals||0), pad.left - 6, y + 3);
+    }
+
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.font = `8px DM Mono, monospace`;
+    ctx.textAlign = 'center';
+    const step = Math.ceil(labels.length / 6);
+    labels.forEach((lbl, i) => {
+      if (i % step === 0 || i === labels.length - 1) {
+        const x = pad.left + (i / (labels.length - 1)) * plotW;
+        ctx.fillText(lbl, x, H - pad.bottom + 16);
+      }
+    });
+
+    datasets.forEach(ds => {
+      const pts = ds.data.map((v, i) => ({
+        x: pad.left + (i / (ds.data.length - 1)) * plotW,
+        y: pad.top + plotH - ((v - minVal) / range) * plotH
+      }));
+      const animPts = pts.slice(0, Math.max(2, Math.round(pts.length * progress)));
+
+      ctx.beginPath();
+      ctx.moveTo(animPts[0].x, pad.top + plotH);
+      animPts.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(animPts[animPts.length - 1].x, pad.top + plotH);
+      ctx.closePath();
+      ctx.fillStyle = ds.fillColor || 'rgba(63,214,140,0.06)';
+      ctx.fill();
+
+      ctx.beginPath();
+      animPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+      ctx.strokeStyle = ds.color || '#3FD68C';
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      if (progress >= 1) {
+        animPts.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = ds.color || '#3FD68C';
+          ctx.fill();
+        });
+      }
+    });
+  }
+
+  let start;
+  function animate(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / 900, 1);
+    render(progress);
+    if (progress < 1) animFrame = requestAnimationFrame(animate);
+  }
+
+  const chartIo = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      resize();
+      start = null;
+      cancelAnimationFrame(animFrame);
+      requestAnimationFrame(animate);
+      chartIo.disconnect();
+    }
+  }, {threshold: 0.2});
+  chartIo.observe(canvas);
+
+  window.addEventListener('resize', () => {
+    resize();
+    render(1);
+  }, {passive: true});
+}
+
+/* TOF Reach — Apr, May, Jun, Jul 2026 */
+drawLineChart('tofReach',
+  ['Apr','May','Jun','Jul'],
+  [{
+    data: [22670,197032,180326,150546],
+    color: '#6EE6AC',
+    fillColor: 'rgba(63,214,140,0.08)'
+  }]
+);
+
+/* TOF Spend — Mar–Jul 2026 */
+drawLineChart('tofSpend',
+  ['Mar','Apr','May','Jun','Jul'],
+  [{
+    data: [44.28,594.65,625.16,597.94,616.85],
+    color: '#6EE6AC',
+    fillColor: 'rgba(63,214,140,0.07)'
+  }],
+  {prefix: '£', decimals: 0}
+);
+
+/* Remarketing Quote Accepts — Jan–Jul 2026 */
+drawLineChart('rmktQA',
+  ['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+  [{
+    data: [63,56,49,80,78,66,84],
+    color: '#5B7FFF',
+    fillColor: 'rgba(91,127,255,0.08)'
+  }]
+);
+
+/* Remarketing Cost per QA — Jan–Jul 2026 */
+drawLineChart('rmktCpqa',
+  ['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+  [{
+    data: [9.80,9.97,12.66,8.33,11.91,16.36,14.66],
+    color: '#5B7FFF',
+    fillColor: 'rgba(91,127,255,0.07)'
+  }],
+  {prefix: '£', decimals: 1}
+);
+</script>
+</body>
+</html>
